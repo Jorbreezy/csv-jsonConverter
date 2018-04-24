@@ -11,6 +11,34 @@
   .container .row {
     margin-top: 5em;
   }
+
+  .modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading .modal {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal {
+    display: block;
+}
+
+
 </style>
 </head>
 <body>
@@ -25,8 +53,22 @@
     </div>
   </div>
   <div id="test">
-    
+    <h4>Test Link: http://web.mta.info/developers/data/nyct/fares/fares_170506.csv</h4>
+    <hr />
+    <h4>
+      This page will take in the MTA CSV (Comma Seperated Value) file and convert it into a JSON file. 
+      Because CSV files are harder to understand, converting it to a JSON file makes it easier to read and retrieve data.
+      <br />
+      <br />
+      --The file is very large so it may take a while to convert it--
+    </h4>
+
+
   </div>
+</div>
+<div id="loading" style="display:none;">
+    Loading Please Wait....
+    <img src="ajax-loader.gif" alt="Loading" />
 </div>
 
 <script>
@@ -48,6 +90,14 @@ $('.btn').click(function(){
     
   }
 });  
+
+$("#loading").ajaxStart(function () {
+    $(this).show();
+ });
+
+ $("#loading").ajaxStop(function () {
+   $(this).hide();
+ });
 </script>
 </body>
 </html>
